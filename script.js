@@ -1,32 +1,37 @@
-window.onload = () => {
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-  const user = tg.initDataUnsafe?.user;
-  const statusEl = document.getElementById("status");
-  const profileEl = document.getElementById("profile");
+const coinsEl = document.getElementById("coins");
+let coins = parseInt(coinsEl.textContent);
 
-  if (user) {
-    statusEl.classList.add("hidden");
-    profileEl.classList.remove("hidden");
+document.getElementById("dailyCheckinBtn").addEventListener("click", () => {
+    coins += 3;
+    coinsEl.textContent = coins;
+    alert("✅ Daily check-in rewarded 3 BDT!");
+});
 
-    document.getElementById("profile-photo").src = user.photo_url || 'https://via.placeholder.com/100';
-    document.getElementById("profile-name").textContent = `${user.first_name} ${user.last_name || ''}`;
-    document.getElementById("profile-username").textContent = `@${user.username}`;
-    document.getElementById("profile-id").textContent = `User ID: ${user.id}`;
-    document.getElementById("profile-lang").textContent = `Language: ${user.language_code}`;
+document.getElementById("withdrawBtn").addEventListener("click", () => {
+    const amount = prompt("Enter amount to withdraw:");
+    if (amount && !isNaN(amount)) {
+        if (parseInt(amount) <= coins) {
+            coins -= parseInt(amount);
+            coinsEl.textContent = coins;
+            alert(`💰 Withdrawal request submitted: ${amount} BDT`);
+        } else {
+            alert("🚫 Not enough balance!");
+        }
+    }
+});
 
-    document.getElementById("watchAdBtn").onclick = () => {
-      window.showGiga()
-        .then(() => {
-          document.getElementById("adResult").innerText = "🎉 You earned 1 coin!";
-          // Optionally notify backend via fetch or telegram-web-app sendData
-        })
-        .catch(() => {
-          document.getElementById("adResult").innerText = "Ad failed or skipped.";
-        });
-    };
-  } else {
-    statusEl.textContent = "No Telegram user info";
-  }
-};
+// GigaPub Ads
+document.getElementById("taskBtn").addEventListener("click", () => {
+    window.showGiga()
+    .then(() => {
+        coins += 1; // reward coin
+        coinsEl.textContent = coins;
+        alert("🎉 You earned 1 coin from GigaAd!");
+    })
+    .catch(e => {
+        alert("⚠️ Ad failed to load: " + e.message);
+    });
+});
