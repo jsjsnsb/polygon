@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Telegram Auto Register/Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paymusics Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://ad.gigapub.tech/script?id=1594"></script>
+<script src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Register/Login...</h2>
-    <p id="status">Waiting...</p>
-    <div id="profile" class="hidden">
-      <img id="profile-photo" src="" alt="User Photo" />
-      <h3 id="profile-name"></h3>
-      <p id="profile-username"></p>
-      <p id="profile-id"></p>
-      <p id="profile-lang"></p>
-      <p>✅ Auto register/login success!</p>
-      <button id="watchAdBtn">Watch Ad to Earn Coins</button>
-      <p id="adResult"></p>
+<div class="container">
+    <div class="profile-card">
+        <img src="https://via.placeholder.com/80" alt="Profile" class="avatar">
+        <h2>APP DEVELOPER User</h2>
+        <p>Total Balance: <span id="coins">25</span> BDT</p>
     </div>
-  </div>
-  <script src="script.js"></script>
-  <script src="https://ad.gigapub.tech/script?id=1829"></script>
+
+    <div class="button-grid">
+        <button id="withdrawBtn">Withdraw</button>
+        <button id="inviteBtn">Invite</button>
+        <button id="taskBtn">Task</button>
+        <button id="supportBtn">Support</button>
+    </div>
+
+    <div class="stats-grid">
+        <div class="card">
+            <p>Current Streak</p>
+            <h3>1 day</h3>
+        </div>
+        <div class="card">
+            <p>Today's Earnings</p>
+            <h3>BDT 10.00</h3>
+        </div>
+        <div class="card">
+            <p>Daily Check-in</p>
+            <button id="dailyCheckinBtn">Checked In ✅</button>
+            <small>Earn your daily reward</small>
+        </div>
+        <div class="card">
+            <p>Today's Tasks</p>
+            <p>Total Tasks: 100</p>
+            <p>Completed: 1</p>
+            <p>Remaining: 99</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
