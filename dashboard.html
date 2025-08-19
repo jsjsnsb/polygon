@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Telegram Earning Bot</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://ad.gigapub.tech/script?id=1829"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="profile-mini">
+                <img id="headerPhoto" src="" alt="Profile">
+                <div>
+                    <h4 id="headerName"></h4>
+                    <p id="headerBalance">0.0000 MATIC</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('dashboard')">📊 Dashboard</button>
+            <button class="tab-btn" onclick="showTab('earn')">💰 Earn</button>
+            <button class="tab-btn" onclick="showTab('tasks')">📋 Tasks</button>
+            <button class="tab-btn" onclick="showTab('withdraw')">💳 Withdraw</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <h3 id="totalBalance">0.0000</h3>
+                        <p>Total Balance (MATIC)</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👀</div>
+                    <div class="stat-info">
+                        <h3 id="adsWatched">0</h3>
+                        <p>Ads Watched</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3 id="totalReferrals">0</h3>
+                        <p>Total Referrals</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="referral-section">
+                <h3>👥 Referral System (9%)</h3>
+                <p>Share your link and earn 9% from referrals' earnings!</p>
+                <div class="referral-link">
+                    <input type="text" id="referralLink" readonly>
+                    <button onclick="copyReferralLink()">📋 Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earn Tab -->
+        <div id="earn" class="tab-content">
+            <div class="earn-section">
+                <h3>👀 Watch Ads to Earn</h3>
+                <div class="ad-info">
+                    <p>💰 Reward: <span id="adReward">0.01</span> MATIC per ad</p>
+                    <p>⏰ Cooldown: <span id="adCooldown">60</span> minutes</p>
+                </div>
+                <button id="watchAdBtn" onclick="watchAd()" class="btn-primary">🎬 Watch Ad</button>
+                <p id="adStatus"></p>
+            </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div id="tasks" class="tab-content">
+            <div class="tasks-section">
+                <h3>📋 Available Tasks</h3>
+                <div id="tasksList">
+                    <div class="task-card">
+                        <div class="task-info">
+                            <h4>📢 Join Channel</h4>
+                            <p>Join our Telegram channel</p>
+                            <span class="reward">+0.05 MATIC</span>
+                        </div>
+                        <button class="btn-secondary" onclick="joinChannel()">Join</button>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-info">
+                            <h4>📱 Share Bot</h4>
+                            <p>Share bot with 5 friends</p>
+                            <span class="reward">+0.1 MATIC</span>
+                        </div>
+                        <button class="btn-secondary" onclick="shareBot()">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdraw Tab -->
+        <div id="withdraw" class="tab-content">
+            <div class="withdraw-section">
+                <h3>💳 Withdraw to Binance</h3>
+                <div class="withdraw-form">
+                    <div class="form-group">
+                        <label>💳 Binance ID:</label>
+                        <input type="text" id="binanceId" placeholder="Enter your Binance ID">
+                    </div>
+                    <div class="form-group">
+                        <label>💰 Amount (MATIC):</label>
+                        <input type="number" id="withdrawAmount" step="0.0001" min="1" placeholder="Minimum: 1.0">
+                    </div>
+                    <button onclick="requestWithdraw()" class="btn-primary">💸 Request Withdrawal</button>
+                </div>
+                
+                <div class="withdraw-info">
+                    <p>ℹ️ Processing time: 24-48 hours</p>
+                    <p>ℹ️ Minimum withdrawal: 1.0 MATIC</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
