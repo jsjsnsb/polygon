@@ -2,88 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Telegram Auto Register/Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coin Earning Bot</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://ad.gigapub.tech/script?id=1829"></script>
-    <link rel="stylesheet" href="style.css"> <!-- Separate CSS file -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1 class="title">🪙 Coin Earn Bot</h1>
-            <p class="subtitle">Earn coins by watching ads & daily check-ins</p>
-        </div>
-
-        <!-- Coin display -->
-        <div class="coin-display">
-            <div class="coin-icon">💰</div>
-            <div class="coin-amount" id="coinAmount">0</div>
-            <div class="coin-label">Total Coins</div>
-        </div>
-
-        <!-- Loading -->
         <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Loading...</p>
+            <h2>🔄 Register/Login...</h2>
+            <p>Please wait...</p>
         </div>
-
-        <!-- Main Content / Buttons -->
-        <div id="mainContent">
-            <button class="action-btn ad-btn" id="watchAdBtn">
-                <span class="icon">📺</span>
-                Watch Ad & Earn Coins
-            </button>
-
-            <div class="actions-grid">
-                <button class="action-btn" id="checkInBtn">
-                    <span class="icon">✅</span>
-                    Daily Check-in
-                </button>
-                
-                <button class="action-btn" id="inviteBtn">
-                    <span class="icon">👥</span>
-                    Invite Friends
-                </button>
-                
-                <button class="action-btn" id="withdrawBtn">
-                    <span class="icon">💸</span>
-                    Withdraw
-                </button>
-                
-                <button class="action-btn" id="statsBtn">
-                    <span class="icon">📊</span>
-                    My Stats
-                </button>
-            </div>
-
-            <!-- Stats -->
-            <div class="stats">
-                <div class="stats-title">📊 Today's Stats</div>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="adsWatched">0</div>
-                        <div class="stat-label">Ads Watched</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="adsRemaining">30</div>
-                        <div class="stat-label">Ads Remaining</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="messageContainer"></div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>🎯 Watch up to 30 ads per day</p>
-            <p>💎 Earn 1 coin per ad & 3 coins daily check-in</p>
-            <p>👥 Invite friends and earn 9% bonus from their earnings!</p>
+        
+        <div class="profile" id="profile" style="display: none;">
+            <img id="userPhoto" src="" alt="Profile Photo">
+            <h3 id="userName"></h3>
+            <p id="userUsername"></p>
+            <p id="userId"></p>
+            <p id="userLang"></p>
+            <div class="success">✅ Auto register/login success!</div>
+            <button onclick="openDashboard()" class="btn-primary">📊 Open Dashboard</button>
         </div>
     </div>
 
-    <script src="script.js"></script> <!-- Separate JS file -->
+    <script>
+        let userData = null;
+        
+        window.onload = () => {
+            const tg = window.Telegram.WebApp;
+            tg.expand();
+            
+            const user = tg.initDataUnsafe?.user;
+            if (user) {
+                userData = {
+                    id: user.id,
+                    first_name: user.first_name,
+                    last_name: user.last_name || "",
+                    username: user.username || "",
+                    language_code: user.language_code || "",
+                    photo_url: user.photo_url || ""
+                };
+                
+                // Auto send back to Bot
+                tg.sendData(JSON.stringify(userData));
+                
+                // Show profile
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('profile').style.display = 'block';
+                
+                document.getElementById('userPhoto').src = userData.photo_url || 'https://via.placeholder.com/100?text=User';
+                document.getElementById('userName').textContent = `${userData.first_name} ${userData.last_name}`;
+                document.getElementById('userUsername').textContent = `@${userData.username || 'N/A'}`;
+                document.getElementById('userId').textContent = `User ID: ${userData.id}`;
+                document.getElementById('userLang').textContent = `Language: ${userData.language_code}`;
+                
+                // Save to session for dashboard
+                sessionStorage.setItem('userData', JSON.stringify(userData));
+            } else {
+                document.getElementById('loading').innerHTML = "<p>❌ No Telegram user info</p>";
+            }
+        };
+        
+        function openDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
 </body>
 </html>
