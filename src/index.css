@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 4%);
+  --foreground: hsl(0, 0%, 90%);
+  --card: hsl(0, 0%, 10%);
+  --card-foreground: hsl(0, 0%, 90%);
+  --popover: hsl(0, 0%, 4%);
+  --popover-foreground: hsl(0, 0%, 90%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(0, 0%, 20%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 20%);
+  --muted-foreground: hsl(0, 0%, 60%);
+  --accent: hsl(195, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 14%);
+  --ring: hsl(195, 100%, 50%);
+  --radius: 12px;
+  
+  /* Custom crypto colors */
+  --crypto-dark: hsl(0, 0%, 4%);
+  --crypto-card: hsl(0, 0%, 10%);
+  --crypto-border: hsl(0, 0%, 20%);
+  --crypto-blue: hsl(195, 100%, 50%);
+  --crypto-green: hsl(142, 100%, 55%);
+  --crypto-amber: hsl(43, 100%, 50%);
+  --crypto-purple: hsl(259, 85%, 68%);
+  --crypto-text: hsl(0, 0%, 90%);
+  --crypto-muted: hsl(0, 0%, 60%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 4%);
+  --foreground: hsl(0, 0%, 90%);
+  --card: hsl(0, 0%, 10%);
+  --card-foreground: hsl(0, 0%, 90%);
+  --popover: hsl(0, 0%, 4%);
+  --popover-foreground: hsl(0, 0%, 90%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(0, 0%, 20%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 20%);
+  --muted-foreground: hsl(0, 0%, 60%);
+  --accent: hsl(195, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 14%);
+  --ring: hsl(195, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .gradient-border {
+    background: linear-gradient(135deg, var(--crypto-blue) 0%, var(--crypto-purple) 100%);
+    padding: 1px;
+    border-radius: 12px;
+  }
+  
+  .gradient-border-content {
+    background: var(--crypto-card);
+    border-radius: 11px;
+    padding: 1rem;
+  }
+  
+  .earning-card {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+  }
+  
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+  
+  .tab-indicator {
+    background: linear-gradient(135deg, var(--crypto-blue) 0%, var(--crypto-purple) 100%);
+  }
+  
+  .crypto-gradient-bg {
+    background: linear-gradient(135deg, var(--crypto-blue) 0%, var(--crypto-purple) 100%);
+  }
+  
+  .crypto-gradient-text {
+    background: linear-gradient(135deg, var(--crypto-blue) 0%, var(--crypto-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
