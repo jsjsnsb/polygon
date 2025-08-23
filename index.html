@@ -1,539 +1,213 @@
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Earning Bot</title>
+    <title>Polygon Earning Bot</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://ad.gigapub.tech/script?id=1829"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-        
-        .balance-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .balance-amount {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .balance-label {
-            opacity: 0.8;
-            font-size: 0.9em;
-        }
-        
-        .tabs {
-            display: flex;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            background: transparent;
-            color: white;
-            font-size: 0.9em;
-        }
-        
-        .tab.active {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .tab-content {
-            display: none;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 15px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-item {
-            text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 15px;
-        }
-        
-        .stat-value {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 0.8em;
-            opacity: 0.8;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            transition: width 0.3s;
-        }
-        
-        .referral-code {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-            font-family: monospace;
-            font-size: 1.2em;
-            letter-spacing: 2px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 50px;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .message.success {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid rgba(46, 204, 113, 0.5);
-        }
-        
-        .message.error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid rgba(231, 76, 60, 0.5);
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+    <div id="app" class="app">
+        <!-- Loading Screen -->
         <div id="loading" class="loading">
             <div class="spinner"></div>
             <p>Loading your dashboard...</p>
         </div>
-        
-        <div id="app" style="display: none;">
-            <div class="header">
-                <img id="profileImg" class="profile-img" src="/placeholder.svg" alt="Profile">
-                <h2 id="userName"></h2>
-                <p id="userHandle"></p>
-            </div>
-            
-            <div class="balance-card">
-                <div class="balance-amount" id="balance">0.0000</div>
-                <div class="balance-label">POLYGON</div>
-            </div>
-            
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
-                <button class="tab" onclick="showTab('earn')">Earn</button>
-                <button class="tab" onclick="showTab('referral')">Referral</button>
-                <button class="tab" onclick="showTab('withdraw')">Withdraw</button>
-            </div>
-            
-            <!-- Dashboard Tab -->
-            <div id="dashboard" class="tab-content active">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="totalEarned">0.0000</div>
-                        <div class="stat-label">Total Earned</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="adsWatched">0</div>
-                        <div class="stat-label">Ads Watched</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="referrals">0</div>
-                        <div class="stat-label">Referrals</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="todayEarning">0.0000</div>
-                        <div class="stat-label">Today's Earning</div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="hidden">
+            <!-- Header -->
+            <header class="header">
+                <div class="user-info">
+                    <img id="userPhoto" src="" alt="Avatar" class="avatar">
+                    <div class="user-details">
+                        <h3 id="userName">Loading...</h3>
+                        <p id="userBalance">0.0000 POLYGON</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Earn Tab -->
-            <div id="earn" class="tab-content">
-                <div id="message"></div>
-                
-                <button class="btn btn-primary" id="checkinBtn" onclick="dailyCheckin()">
-                    🎁 Daily Check-in (+0.05 POLYGON)
+                <div class="balance-card">
+                    <div class="balance-amount" id="mainBalance">0.0000</div>
+                    <div class="balance-label">POLYGON</div>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
                 </button>
-                
-                <div style="margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                        <span>Daily Ads Progress</span>
-                        <span id="adsProgress">0/15</span>
+                <button class="nav-btn" data-tab="earn">
+                    <span class="nav-icon">💰</span>
+                    <span>Earn</span>
+                </button>
+                <button class="nav-btn" data-tab="tasks">
+                    <span class="nav-icon">📋</span>
+                    <span>Tasks</span>
+                </button>
+                <button class="nav-btn" data-tab="referral">
+                    <span class="nav-icon">👥</span>
+                    <span>Referral</span>
+                </button>
+                <button class="nav-btn" data-tab="withdraw">
+                    <span class="nav-icon">💳</span>
+                    <span>Withdraw</span>
+                </button>
+            </nav>
+
+            <!-- Tab Content -->
+            <main class="content">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="todayEarning">0.0000</div>
+                            <div class="stat-label">Today's Earnings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="lifetimeEarning">0.0000</div>
+                            <div class="stat-label">Lifetime Earnings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="referralCount">0</div>
+                            <div class="stat-label">Referrals</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="adsWatched">0/15</div>
+                            <div class="stat-label">Ads Watched</div>
+                        </div>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="adsProgressBar" style="width: 0%"></div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div id="recentEarnings" class="activity-list">
+                            <!-- Dynamic content -->
+                        </div>
                     </div>
                 </div>
-                
-                <button class="btn btn-secondary" id="watchAdBtn" onclick="watchAd()">
-                    📺 Watch Ad (+0.01 POLYGON)
-                </button>
-            </div>
-            
-            <!-- Referral Tab -->
-            <div id="referral" class="tab-content">
-                <h3 style="margin-bottom: 20px; text-align: center;">Invite Friends & Earn</h3>
-                
-                <div class="referral-code" id="referralCode">REF123456</div>
-                
-                <button class="btn btn-primary" onclick="shareReferral()">
-                    📤 Share Referral Link
-                </button>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <p>Earn 9% of your friends' earnings!</p>
-                    <p style="opacity: 0.8; font-size: 0.9em;">Total referrals: <span id="referralCount">0</span></p>
+
+                <!-- Earn Tab -->
+                <div id="earn" class="tab-content">
+                    <div class="earn-methods">
+                        <!-- Daily Check-in -->
+                        <div class="earn-card">
+                            <div class="earn-icon">📅</div>
+                            <div class="earn-info">
+                                <h3>Daily Check-in</h3>
+                                <p>Get 0.05 POLYGON daily</p>
+                                <div class="earn-reward">+0.05 POLYGON</div>
+                            </div>
+                            <button id="checkinBtn" class="earn-btn">
+                                <span id="checkinText">Check In</span>
+                            </button>
+                        </div>
+
+                        <!-- Watch Ads -->
+                        <div class="earn-card">
+                            <div class="earn-icon">📺</div>
+                            <div class="earn-info">
+                                <h3>Watch Ads</h3>
+                                <p>Earn 0.01 POLYGON per ad</p>
+                                <div class="earn-reward">+0.01 POLYGON</div>
+                                <div class="ads-progress">
+                                    <span id="adsProgress">0/15 ads today</span>
+                                </div>
+                            </div>
+                            <button id="watchAdBtn" class="earn-btn">
+                                Watch Ad
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Withdraw Tab -->
-            <div id="withdraw" class="tab-content">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <p>Minimum withdrawal: 0.1 POLYGON</p>
-                    <p style="opacity: 0.8;">Processing time: 24 hours</p>
+
+                <!-- Tasks Tab -->
+                <div id="tasks" class="tab-content">
+                    <div class="tasks-header">
+                        <h3>Complete Tasks</h3>
+                        <p>Earn extra POLYGON by completing simple tasks</p>
+                    </div>
+                    <div id="tasksList" class="tasks-list">
+                        <!-- Dynamic content -->
+                    </div>
                 </div>
-                
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px;">Binance ID:</label>
-                    <input type="text" id="binanceId" placeholder="Enter your Binance ID" 
-                           style="width: 100%; padding: 12px; border: none; border-radius: 10px; background: rgba(255,255,255,0.1); color: white;">
+
+                <!-- Referral Tab -->
+                <div id="referral" class="tab-content">
+                    <div class="referral-header">
+                        <h3>Invite Friends</h3>
+                        <p>Earn 9% from each friend's earnings</p>
+                    </div>
+
+                    <div class="referral-stats">
+                        <div class="referral-stat">
+                            <div class="stat-value" id="totalReferrals">0</div>
+                            <div class="stat-label">Total Referrals</div>
+                        </div>
+                        <div class="referral-stat">
+                            <div class="stat-value" id="referralEarnings">0.0000</div>
+                            <div class="stat-label">Referral Earnings</div>
+                        </div>
+                    </div>
+
+                    <div class="referral-link">
+                        <h4>Your Referral Link</h4>
+                        <div class="link-container">
+                            <input type="text" id="referralLink" readonly>
+                            <button id="copyLinkBtn" class="copy-btn">Copy</button>
+                        </div>
+                        <button id="shareLinkBtn" class="share-btn">Share Link</button>
+                    </div>
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 5px;">Amount (POLYGON):</label>
-                    <input type="number" id="withdrawAmount" placeholder="0.1" step="0.0001" min="0.1"
-                           style="width: 100%; padding: 12px; border: none; border-radius: 10px; background: rgba(255,255,255,0.1); color: white;">
+
+                <!-- Withdraw Tab -->
+                <div id="withdraw" class="tab-content">
+                    <div class="withdraw-header">
+                        <h3>Withdraw POLYGON</h3>
+                        <p>Minimum withdrawal: 0.50 POLYGON</p>
+                    </div>
+
+                    <div class="withdraw-form">
+                        <div class="form-group">
+                            <label for="binanceId">Binance ID</label>
+                            <input type="text" id="binanceId" placeholder="Enter your Binance ID">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdrawAmount">Amount</label>
+                            <input type="number" id="withdrawAmount" step="0.0001" min="0.5" placeholder="0.5000">
+                            <div class="balance-info">
+                                Available: <span id="availableBalance">0.0000</span> POLYGON
+                            </div>
+                        </div>
+
+                        <button id="withdrawBtn" class="withdraw-btn">
+                            Request Withdrawal
+                        </button>
+                    </div>
+
+                    <div class="withdraw-history">
+                        <h4>Withdrawal History</h4>
+                        <div id="withdrawalHistory" class="history-list">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
                 </div>
-                
-                <button class="btn btn-primary" onclick="requestWithdraw()">
-                    💰 Request Withdrawal
-                </button>
-            </div>
+            </main>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast hidden"></div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
         </div>
     </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        let userData = null;
-        let userStats = null;
-        
-        // Initialize app
-        window.onload = async () => {
-            tg.expand();
-            
-            const user = tg.initDataUnsafe?.user;
-            if (user) {
-                userData = {
-                    id: user.id,
-                    first_name: user.first_name,
-                    last_name: user.last_name || "",
-                    username: user.username || "",
-                    language_code: user.language_code || "",
-                    photo_url: user.photo_url || ""
-                };
-                
-                // Send user data to bot
-                tg.sendData(JSON.stringify(userData));
-                
-                // Load user interface
-                await loadUserData();
-                
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-            } else {
-                document.getElementById('loading').innerHTML = '<p>❌ No Telegram user info</p>';
-            }
-        };
-        
-        async function loadUserData() {
-            // Simulate API call to get user stats
-            // In real implementation, this would be an actual API call
-            userStats = {
-                balance: 0.0000,
-                today_ads: 0,
-                ads_limit: 15,
-                total_ads_watched: 0,
-                referral_count: 0,
-                referral_code: `REF${userData.id}`,
-                today_earning: 0.0000,
-                lifetime_earning: 0.0000
-            };
-            
-            updateUI();
-        }
-        
-        function updateUI() {
-            // Update profile
-            document.getElementById('profileImg').src = userData.photo_url || 'https://via.placeholder.com/80';
-            document.getElementById('userName').textContent = `${userData.first_name} ${userData.last_name}`;
-            document.getElementById('userHandle').textContent = userData.username ? `@${userData.username}` : '';
-            
-            // Update balance
-            document.getElementById('balance').textContent = userStats.balance.toFixed(4);
-            
-            // Update stats
-            document.getElementById('totalEarned').textContent = userStats.lifetime_earning.toFixed(4);
-            document.getElementById('adsWatched').textContent = userStats.total_ads_watched;
-            document.getElementById('referrals').textContent = userStats.referral_count;
-            document.getElementById('todayEarning').textContent = userStats.today_earning.toFixed(4);
-            
-            // Update ads progress
-            const adsProgress = `${userStats.today_ads}/${userStats.ads_limit}`;
-            document.getElementById('adsProgress').textContent = adsProgress;
-            
-            const progressPercent = (userStats.today_ads / userStats.ads_limit) * 100;
-            document.getElementById('adsProgressBar').style.width = `${progressPercent}%`;
-            
-            // Update referral code
-            document.getElementById('referralCode').textContent = userStats.referral_code;
-            document.getElementById('referralCount').textContent = userStats.referral_count;
-            
-            // Update button states
-            document.getElementById('watchAdBtn').disabled = userStats.today_ads >= userStats.ads_limit;
-        }
-        
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-        
-        function showMessage(text, type = 'success') {
-            const messageDiv = document.getElementById('message');
-            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
-            
-            setTimeout(() => {
-                messageDiv.innerHTML = '';
-            }, 5000);
-        }
-        
-        async function dailyCheckin() {
-            const btn = document.getElementById('checkinBtn');
-            btn.disabled = true;
-            btn.textContent = 'Processing...';
-            
-            // Simulate API call
-            setTimeout(() => {
-                userStats.balance += 0.05;
-                userStats.today_earning += 0.05;
-                userStats.lifetime_earning += 0.05;
-                
-                updateUI();
-                showMessage('🎁 Daily check-in complete! +0.05 POLYGON');
-                
-                btn.textContent = '✅ Checked in today';
-            }, 1500);
-        }
-        
-        async function watchAd() {
-            if (userStats.today_ads >= userStats.ads_limit) {
-                showMessage('Daily ad limit reached!', 'error');
-                return;
-            }
-            
-            const btn = document.getElementById('watchAdBtn');
-            btn.disabled = true;
-            btn.textContent = 'Loading ad...';
-            
-            try {
-                // Show Gigapub ad
-                await window.showGiga();
-                
-                // Reward user after ad
-                userStats.balance += 0.01;
-                userStats.today_ads += 1;
-                userStats.today_earning += 0.01;
-                userStats.lifetime_earning += 0.01;
-                userStats.total_ads_watched += 1;
-                
-                updateUI();
-                showMessage(`📺 Ad watched! +0.01 POLYGON (${userStats.today_ads}/${userStats.ads_limit})`);
-                
-            } catch (error) {
-                showMessage('Failed to load ad. Please try again.', 'error');
-            }
-            
-            btn.disabled = userStats.today_ads >= userStats.ads_limit;
-            btn.textContent = userStats.today_ads >= userStats.ads_limit ? 
-                '✅ Daily limit reached' : '📺 Watch Ad (+0.01 POLYGON)';
-        }
-        
-        function shareReferral() {
-            const referralLink = `https://t.me/YOUR_BOT_USERNAME?start=${userStats.referral_code}`;
-            const shareText = `🎉 Join me on Crypto Earning Bot and start earning POLYGON tokens!\n\n💰 Daily rewards, ad watching, and more!\n\nUse my referral code: ${userStats.referral_code}\n\n${referralLink}`;
-            
-            if (tg.openTelegramLink) {
-                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(shareText)}`);
-            } else {
-                // Fallback: copy to clipboard
-                navigator.clipboard.writeText(shareText).then(() => {
-                    showMessage('Referral link copied to clipboard!');
-                });
-            }
-        }
-        
-        function requestWithdraw() {
-            const binanceId = document.getElementById('binanceId').value.trim();
-            const amount = parseFloat(document.getElementById('withdrawAmount').value);
-            
-            if (!binanceId) {
-                showMessage('Please enter your Binance ID', 'error');
-                return;
-            }
-            
-            if (!amount || amount < 0.1) {
-                showMessage('Minimum withdrawal amount is 0.1 POLYGON', 'error');
-                return;
-            }
-            
-            if (amount > userStats.balance) {
-                showMessage('Insufficient balance', 'error');
-                return;
-            }
-            
-            // Send withdrawal request to bot
-            const withdrawData = {
-                type: 'withdraw',
-                binance_id: binanceId,
-                amount: amount
-            };
-            
-            tg.sendData(JSON.stringify(withdrawData));
-            
-            showMessage(`✅ Withdrawal request submitted for ${amount.toFixed(4)} POLYGON`);
-            
-            // Clear form
-            document.getElementById('binanceId').value = '';
-            document.getElementById('withdrawAmount').value = '';
-        }
-    </script>
+    <script src="js/api.js"></script>
+    <script src="js/ads.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
