@@ -1,115 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polygon Earning Bot</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://ad.gigapub.tech/script?id=1829"></script>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>TG WebApp Landing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-    <div id="app" class="app">
-        <!-- Loading Screen -->
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Loading your dashboard...</p>
-        </div>
-
-        <!-- Main App -->
-        <div id="mainApp" class="hidden">
-            <!-- Header -->
-            <header class="header">
-                <div class="user-info">
-                    <img id="userPhoto" src="" alt="Avatar" class="avatar">
-                    <div class="user-details">
-                        <h3 id="userName">Loading...</h3>
-                        <p id="userBalance">0.0000 POLYGON</p>
-                    </div>
-                </div>
-                <div class="balance-card">
-                    <div class="balance-amount" id="mainBalance">0.0000</div>
-                    <div class="balance-label">POLYGON</div>
-                </div>
-            </header>
-
-            <!-- Navigation -->
-            <nav class="bottom-nav">
-                <button class="nav-btn active" data-tab="dashboard">
-                    <span class="nav-icon">🏠</span>
-                    <span>Dashboard</span>
-                </button>
-                <button class="nav-btn" data-tab="earn">
-                    <span class="nav-icon">💰</span>
-                    <span>Earn</span>
-                </button>
-                <button class="nav-btn" data-tab="tasks">
-                    <span class="nav-icon">📋</span>
-                    <span>Tasks</span>
-                </button>
-                <button class="nav-btn" data-tab="referral">
-                    <span class="nav-icon">👥</span>
-                    <span>Referral</span>
-                </button>
-                <button class="nav-btn" data-tab="withdraw">
-                    <span class="nav-icon">💳</span>
-                    <span>Withdraw</span>
-                </button>
-            </nav>
-
-            <!-- Tab Content -->
-            <main class="content">
-                <!-- Dashboard Tab -->
-                <div id="dashboard" class="tab-content active">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="todayEarning">0.0000</div>
-                            <div class="stat-label">Today's Earnings</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="lifetimeEarning">0.0000</div>
-                            <div class="stat-label">Lifetime Earnings</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="referralCount">0</div>
-                            <div class="stat-label">Referrals</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="adsWatched">0/15</div>
-                            <div class="stat-label">Ads Watched</div>
-                        </div>
-                    </div>
-
-                    <div class="recent-activity">
-                        <h3>Recent Activity</h3>
-                        <div id="recentEarnings" class="activity-list">
-                            <!-- Dynamic content -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Earn Tab -->
-                <div id="earn" class="tab-content">
-                    <div class="earn-methods">
-                        <!-- Daily Check-in -->
-                        <div class="earn-card">
-                            <div class="earn-icon">📅</div>
-                            <div class="earn-info">
-                                <h3>Daily Check-in</h3>
-                                <p>Get 0.05 POLYGON daily</p>
-                                <div class="earn-reward">+0.05 POLYGON</div>
-                            </div>
-                            <button id="checkinBtn" class="earn-btn">
-                                <span id="checkinText">Check In</span>
-                            </button>
-                        </div>
-
-                        <!-- Watch Ads -->
-                        <div class="earn-card">
-                            <div class="earn-icon">📺</div>
-                            <div class="earn-info">
-                                <h3>Watch Ads</h3>
-                                <p>Earn 0.01 POLYGON per ad</p>
+<body style="font-family: sans-serif; text-align:center; padding:30px;">
+  <h2>Telegram Earn Mini-App</h2>
+  <p>Open from the Telegram bot to access the dashboard.</p>
+</body>
+</html>
                                 <div class="earn-reward">+0.01 POLYGON</div>
                                 <div class="ads-progress">
                                     <span id="adsProgress">0/15 ads today</span>
