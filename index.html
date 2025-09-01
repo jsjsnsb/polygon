@@ -1,13 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TG WebApp Landing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polygon Earning Platform</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://ad.gigapub.tech/script?id=1829"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="font-family: sans-serif; text-align:center; padding:30px;">
-  <h2>Telegram Earn Mini-App</h2>
-  <p>Open from the Telegram bot to access the dashboard.</p>
+<body>
+    <div id="app">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+        
+        <div id="mainApp" style="display: none;">
+            <!-- Header -->
+            <div class="header">
+                <img id="userPhoto" src="" alt="Profile" class="profile-photo">
+                <div class="user-info">
+                    <h3 id="userName"></h3>
+                    <p id="userUsername"></p>
+                </div>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <h2>💰 Balance</h2>
+                <div class="balance-amount">
+                    <span id="balance">0.0000</span>
+                    <small>POLYGON</small>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">Total Earned</span>
+                        <span class="stat-value" id="totalEarned">0.0000</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Ads Today</span>
+                        <span class="stat-value" id="adsToday">0/15</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="earn">💰 Earn</button>
+                <button class="tab-btn" data-tab="tasks">📋 Tasks</button>
+                <button class="tab-btn" data-tab="referral">👥 Referral</button>
+                <button class="tab-btn" data-tab="withdraw">💳 Withdraw</button>
+            </div>
+
+            <!-- Earn Tab -->
+            <div class="tab-content active" id="earnTab">
+                <div class="earn-actions">
+                    <button class="action-btn checkin-btn" id="checkinBtn">
+                        <span class="btn-icon">📅</span>
+                        <div class="btn-text">
+                            <strong>Daily Check-in</strong>
+                            <small>+0.05 POLYGON</small>
+                        </div>
+                    </button>
+
+                    <button class="action-btn ad-btn" id="adBtn">
+                        <span class="btn-icon">📺</span>
+                        <div class="btn-text">
+                            <strong>Watch Ad</strong>
+                            <small>+0.01 POLYGON</small>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tasks Tab -->
+            <div class="tab-content" id="tasksTab">
+                <div class="tasks-list">
+                    <div class="task-item">
+                        <div class="task-info">
+                            <strong>Join Telegram Channel</strong>
+                            <small>+0.10 POLYGON</small>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-info">
+                            <strong>Follow Twitter</strong>
+                            <small>+0.05 POLYGON</small>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referral Tab -->
+            <div class="tab-content" id="referralTab">
+                <div class="referral-card">
+                    <h3>👥 Invite Friends</h3>
+                    <p>Get 9% of your friends' earnings!</p>
+                    <div class="referral-code">
+                        <label>Your Referral Code:</label>
+                        <div class="code-container">
+                            <input type="text" id="referralCode" readonly>
+                            <button class="copy-btn" id="copyBtn">Copy</button>
+                        </div>
+                    </div>
+                    <div class="referral-stats">
+                        <div class="stat">
+                            <span class="stat-label">Referral Earnings</span>
+                            <span class="stat-value" id="referralEarnings">0.0000</span>
+                        </div>
+                    </div>
+                    <button class="share-btn" id="shareBtn">Share Link</button>
+                </div>
+            </div>
+
+            <!-- Withdraw Tab -->
+            <div class="tab-content" id="withdrawTab">
+                <div class="withdraw-form">
+                    <h3>💳 Withdraw Funds</h3>
+                    <div class="form-group">
+                        <label>Amount (POLYGON)</label>
+                        <input type="number" id="withdrawAmount" step="0.0001" min="0.01" placeholder="0.0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Binance ID</label>
+                        <input type="text" id="binanceId" placeholder="Enter your Binance ID">
+                    </div>
+                    <button class="withdraw-btn" id="withdrawBtn">Request Withdrawal</button>
+                    <small class="withdraw-note">Minimum withdrawal: 0.01 POLYGON</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
-</html>
 </html>
